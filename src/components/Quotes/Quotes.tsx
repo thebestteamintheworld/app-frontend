@@ -1,16 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import {Col, Row, Table} from "react-bootstrap";
+import {Table} from "react-bootstrap";
 import CurrencyDropdownMenu from "../CurrencyDropdownMenu/CurrencyDropdownMenu";
 import './style.css';
+import Quote from "../Quote/Quote";
+
 
 interface quote {
     key: string,
     value: string,
     text: string,
+}
+
+interface quoteFetching {
+    TYPE: null | string,
+    BID: null | number,
+    ASK: null | number,
+    SPREAD: null | number,
+    MARKUP: null | number,
 };
 
-
-function generateQList(currencies, basicQList) {
+function generateQList(currencies) {
     const QList: string[] = [];
     for (let i of currencies) {
         for (let j of currencies) {
@@ -22,59 +31,106 @@ function generateQList(currencies, basicQList) {
     const newQList: quote[] = [];
     let counter: number = 0;
     for (let i of QList) {
-        if (basicQList.indexOf(i) == -1) {
-            newQList.push({
-                key: counter + i,
-                value: i,
-                text: i,
-            });
-            counter++;
-        }
+        newQList.push({
+            key: counter + i,
+            value: i,
+            text: i,
+        });
+        counter++;
     }
 
     return newQList;
+}
+
+function generateQListForFetching(currencies) {
+    const QList: string[] = [];
+    for (let i of currencies) {
+        for (let j of currencies) {
+            if (i !== j) {
+                QList.push(`${i}/${j}`)
+            }
+        }
+    }
+    const newQList: quoteFetching[] = [];
+    let counter: number = 0;
+    for (let i of QList) {
+        newQList.push({
+            TYPE: i,
+            BID: null,
+            ASK: null,
+            SPREAD: null,
+            MARKUP: null,
+        });
+        counter++;
+    }
+
+    return newQList;
+}
+
+function findArr(value, store) {
+    for (let arr of store) {
+        if (arr.TYPE === value) {
+            return arr;
+        }
+    }
 }
 
 let currentMessage
 
 function Quotes() {
     const currencies: string[] = [
-        'EUR', 'AUD', 'USD', 'HKD', 'CHF', 'GBP', 'USD', 'CAD'
-    ];
+        'USD', 'CNH', 'EUR', 'AUD', 'HKD', 'CHF', 'GBP', 'CAD'];
     const basicQList: string[] = ['USD/CNH',
         'EUR/USD', 'AUD/USD', 'USD/HKD', 'USD/CHF', 'EUR/GBP', 'GBP/USD', 'USD/CAD'
     ];
-    const [dropdownList, setDropdownList] = useState<quote[]>(generateQList(currencies, basicQList));
+    const [dropdownList, setDropdownList] = useState<quote[]>(generateQList(currencies));
+    const [fetchingData, setFetchingData] = useState<quoteFetching[]>(generateQListForFetching(currencies));
     const [quotes, setQuotes] = useState(basicQList);
     const [lastMes, setLastMes] = useState(null);
+    const [data, setData] = useState();
     const sendRes = (socket) => {
         const res = JSON.stringify({
             type: "change",
-            symbols: ['USD/CNH', 'EUR/USD', 'AUD/USD', 'USD/HKD', 'USD/CHF', 'EUR/GBP', 'GBP/USD', 'USD/CAD'],
+            symbols: basicQList,
         });
         socket.send(res)
     };
-
     useEffect(() => {
-        let socket = new WebSocket("ws://nix112.tk:9000");
-        socket.onopen = function (e) {
-            console.log('socket is open');
-            sendRes(socket);
-        }
-        socket.onmessage = (e) => {
-            console.log(e.data);
-            currentMessage = e.data;
-            console.info(JSON.parse(e.data));
-        }
+            let socket = new WebSocket("ws://nix112.tk:9000");
+            socket.onopen = function (e) {
+                console.log('socket open');
+                sendRes(socket);
+            }
+            socket.onmessage = (e) => {
+                currentMessage = e.data;
+                let data = JSON.parse(currentMessage);
+                let spread = Math.abs(Math.floor((data.bidPrice - data.askPrice) * 100000) / 100000);
+                const newData: quoteFetching = {
+                    TYPE: data.eventSymbol.substring(0, 7),
+                    BID: data.bidPrice,
+                    ASK: data.askPrice,
+                    SPREAD: spread,
+                    MARKUP: null,
+                }
+                const res = fetchingData.map((obj) => {
+                    if (obj.TYPE === newData.TYPE) {
+                        return newData;
+                    }
+                    return obj;
+                });
+                setFetchingData(res);
+            }
 
-        return () => socket.close()
-    }, []);
+            return () => socket.close()
+        },
+        [fetchingData]
+    )
+    ;
 
     useEffect(() => {
         const interval = setInterval(() => setLastMes(currentMessage), 1000)
         return () => clearInterval(interval)
     })
-    // const msg = JSON.parse(currentMessage);
 
     return (
         <Table striped bordered hover>
@@ -90,40 +146,9 @@ function Quotes() {
             <tbody>
             {quotes.map((value, index) => {
                 return (
-                    <tr key={value + index}>
-                        <td>
-                            <Row>
-                                <Col className = "d-flex justify-content-center" xs ={12} md={6}>
-                                    <p>{value}</p>
-                                </Col>
-                                <Col className="remove-btn-wrapper" onClick={() => {
-                                    setQuotes(quotes.filter(text => value != text))
-                                    setDropdownList([...dropdownList, {
-                                        key: value + dropdownList.length,
-                                        value: value,
-                                        text: value,
-                                    }]);
-                                }}>
-                                    <i className="fas fa-times-circle"/>
-                                </Col>
-                            </Row>
-
-                        </td>
-                        <td>
-                            <p></p>
-                        </td>
-                        <td>
-                            <p></p>
-                        </td>
-                        <td>
-                            <p></p>
-                        </td>
-                        <td>
-                            <p></p>
-                        </td>
-
-                    </tr>
-                )
+                    <Quote key={index + value} value={value} setQuotes={setQuotes} setDropdownList={setDropdownList}
+                           dropdownList={dropdownList} quotes={quotes} store = {fetchingData}/>
+                );
             })}
             <tr>
                 <td colSpan={5} className="text-center">
