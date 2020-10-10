@@ -4,17 +4,16 @@ import {Dropdown} from "semantic-ui-react";
 
 function CurrencyDropdownMenu(props) {
     const [value, setValue] = useState(null);
-    return (<Dropdown
-        placeholder='Select Quote'
-        fluid
-        search
-        selection
-        options={props.data}
-        onChange={(tech, data) => {
-            props.setDropdownMenuValue(data.value)
-        }
-        }
-    />);
+    return (
+        <Dropdown
+            placeholder='Select Quote'
+            fluid
+            search
+            selection
+            options={props.data}
+            onChange={(_, {value}) => props.onChange(value)}
+        />
+    );
 }
 
 export default CurrencyDropdownMenu;

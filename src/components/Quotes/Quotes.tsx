@@ -50,7 +50,8 @@ function Quotes() {
     const basicQList: string[] = [
         'EUR/USD', 'AUD/USD', 'USD/HKD', 'USD/CHF', 'EUR/GBP', 'GBP/USD', 'USD/CAD'
     ];
-    const QList: quote[] = generateQList(currencies, basicQList);
+    // const QList: quote[] = generateQList(currencies, basicQList);
+    const [dropdownList, setDropdownList] = useState<quote[]>(generateQList(currencies, basicQList));
     const [quotes, setQuotes] = useState(basicQList);
     const [dropdownMenuValue, setDropdownMenuValue] = useState(null);
     return (
@@ -68,7 +69,7 @@ function Quotes() {
             {quotes.map((value, index) => {
                 return (
                     <tr>
-                        <td key={index} >
+                        <td key={value + index}>
                             <Row>
                                 <Col xs={10}>
                                     <p>{value}</p>
@@ -86,7 +87,12 @@ function Quotes() {
             })}
             <tr>
                 <td colSpan={5} className="text-center">
-                    <CurrencyDropdownMenu data={QList} setDropdownMenuValue={setDropdownMenuValue}/>
+                    <CurrencyDropdownMenu data={dropdownList} setDropdownMenuValue={setDropdownMenuValue} onChange={
+                        (value) => {
+                            setQuotes([...quotes, value])
+                            setDropdownList(dropdownList.filter(symbol => symbol !== value))
+                        }
+                    }/>
                 </td>
             </tr>
             <tr>
