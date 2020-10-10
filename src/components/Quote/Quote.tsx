@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Col, Row} from "react-bootstrap";
 import Spinner from "./Spinner";
+
 interface quote {
     currency1: string,
     currency2: string,
     bid: number,
     ask: number,
     spread: number,
+    textThemeClass: string,
 }
 
 
@@ -26,9 +28,9 @@ function Quote(props) {
         <td>
             <Row>
                 <Col className="d-flex justify-content-center" xs={12} md={6}>
-                    <p>{props.value}</p>
+                    <p className={props.textThemeClass}>{props.value}</p>
                 </Col>
-                <Col className="remove-btn-wrapper" onClick={() => {
+                <Col className={"remove-btn-wrapper" + " " + props.textThemeClass} onClick={() => {
                     props.setQuotes(props.quotes.filter(text => props.value != text))
                     props.setDropdownList([...props.dropdownList, {
                         key: props.value + props.dropdownList.length,
@@ -41,16 +43,16 @@ function Quote(props) {
             </Row>
         </td>
         <td>
-            <p><Spinner data = {data} option = 'bid'/></p>
+            <p className={props.textThemeClass}><Spinner data={data} option='bid'/></p>
         </td>
         <td>
-            <p><Spinner data = {data} option = 'ask'/></p>
+            <p className={props.textThemeClass}><Spinner data={data} option='ask'/></p>
         </td>
         <td>
-            <p><Spinner data = {data} option = 'spread'/></p>
+            <p className={props.textThemeClass}><Spinner data={data} option='spread'/></p>
         </td>
         <td>
-            <p></p>
+            <p className={props.textThemeClass}></p>
         </td>
 
     </tr>);
