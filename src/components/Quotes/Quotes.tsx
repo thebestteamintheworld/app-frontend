@@ -58,11 +58,11 @@ function Quotes() {
         <Table striped bordered hover>
             <thead>
             <tr>
-                <th>TYPE</th>
-                <th>BID</th>
-                <th>ASK</th>
-                <th>SPREAD</th>
-                <th>MARKUP</th>
+                <th className={"table_header"}>TYPE</th>
+                <th className={"table_header"}>BID</th>
+                <th className={"table_header"}>ASK</th>
+                <th className={"table_header"}>SPREAD</th>
+                <th className={"table_header"}>MARKUP</th>
             </tr>
             </thead>
             <tbody>
@@ -72,7 +72,7 @@ function Quotes() {
                         <td key={value + index}>
                             <Row>
                                 <Col xs={10}>
-                                    <p>{value}</p>
+                                    <p className={"table_cell_value"}>{value}</p>
                                 </Col>
                                 <Col onClick={() => {
                                     alert('yeah')

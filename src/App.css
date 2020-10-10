@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.table_cell_value
+{
+  font-weight:bolder;
+}
+
+.table_header
+{
+font-size:19px;
+}
