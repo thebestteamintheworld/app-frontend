@@ -4,24 +4,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'semantic-ui-css/semantic.min.css'
 import {Col, Container, Row} from "react-bootstrap";
 import Quotes from "./components/Quotes/Quotes";
-import TestCharts from "./components/charts/TestChart";
-import {Header} from "./components/Header"
+import {Header} from "./components/Header";
 
 function App() {
     return (
-        <>
+        <Container fluid>
             <Header/>
-            <Container fluid>
-                <Row>
-                    <Col xs={12}>
-                        <Quotes/>
-                    </Col>
-                    {/*<Col>*/}
-                    {/*    <TestCharts/>*/}
-                    {/*</Col>*/}
-                </Row>
-            </Container>
-        </>
+            <Row>
+                <Col xs={12}>
+                    <Quotes/>
+                </Col>
+                {/*</Col>*/}
+            </Row>
+        </Container>
     );
 }
 
