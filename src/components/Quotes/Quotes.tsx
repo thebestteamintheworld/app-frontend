@@ -78,15 +78,14 @@ function findArr(value, store) {
 let currentMessage
 
 
-interface QuotesProps
-{
-    darkTheme:boolean
+interface QuotesProps {
+    darkTheme: boolean
 
 }
 
-function Quotes(props:QuotesProps) {
-    let tableVariant:string=props.darkTheme? "dark":"light";
-    let textVariant:string=props.darkTheme? "tab-text-dark":"";
+function Quotes(props: QuotesProps) {
+    let tableVariant: string = props.darkTheme ? "dark" : "light";
+    let textVariant: string = props.darkTheme ? "tab-text-dark" : "";
 
     const currencies: string[] = [
         'USD', 'CNH', 'EUR', 'AUD', 'HKD', 'CHF', 'GBP', 'CAD'];
@@ -146,18 +145,18 @@ function Quotes(props:QuotesProps) {
         <Table striped bordered hover>
             <thead>
             <tr>
-                <th className="text-center">TYPE</th>
-                <th className="text-center">BID</th>
-                <th className="text-center">ASK</th>
-                <th className="text-center">SPREAD</th>
-                <th className="text-center">MARKUP</th>
+                <th className={"text-center" + " " + textVariant}>TYPE</th>
+                <th className={"text-center" + " " + textVariant}>BID</th>
+                <th className={"text-center" + " " + textVariant}>ASK</th>
+                <th className={"text-center" + " " + textVariant}>SPREAD</th>
+                <th className={"text-center" + " " + textVariant}>MARKUP</th>
             </tr>
             </thead>
             <tbody>
             {quotes.map((value, index) => {
                 return (
-                    <Quote key={index + value} value={value} setQuotes={setQuotes} setDropdownList={setDropdownList}
-                           dropdownList={dropdownList} quotes={quotes} store = {fetchingData}/>
+                    <Quote textThemeClass={textVariant} key={index + value} value={value} setQuotes={setQuotes} setDropdownList={setDropdownList}
+                           dropdownList={dropdownList} quotes={quotes} store={fetchingData}/>
                 );
             })}
             <tr>

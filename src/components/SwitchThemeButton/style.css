@@ -1,7 +1,10 @@
 .switch-main
 {
-    margin-left:2%;
+    margin: 2% auto;
+    display: flex!important;
+    justify-content: center;
 }
+
 
 .txt-swtch-dark
 {
