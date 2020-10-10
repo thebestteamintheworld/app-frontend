@@ -33,6 +33,14 @@ function generateQList(currencies, basicQList) {
     return newQList;
 }
 
+function addQuete(quete: string, quetes: string[], setQuotes) {
+    for (let i of quetes) {
+        if (i == quete) return alert('fuck');
+    }
+    const newQuete:string[] = quetes.slice();
+    newQuete.push(quete);
+    return setQuotes(newQuete);
+}
 
 function Quotes() {
     const currencies:string[] = [
@@ -41,10 +49,9 @@ function Quotes() {
     const basicQList: string[] = [
         'EUR/USD', 'AUD/USD', 'USD/HKD', 'USD/CHF', 'EUR/GBP', 'GBP/USD', 'USD/CAD'
     ];
-
     const QList:quote[] = generateQList(currencies, basicQList);
-    console.log(QList);
     const [quotes, setQuotes] = useState(basicQList);
+    const [dropdownMenuValue, setDropdownMenuValue] = useState(null);
     return (
         <Table striped bordered hover>
             <thead>
@@ -68,7 +75,14 @@ function Quotes() {
             })}
             <tr>
                 <td colSpan = {5} className="text-center" >
-                    <CurrencyDropdownMenu data={QList}/>
+                    <CurrencyDropdownMenu data={QList} setDropdownMenuValue = {setDropdownMenuValue}/>
+                </td>
+            </tr>
+            <tr>
+                <td colSpan = {5} className="text-center" onClick = {() => {
+                    addQuete(dropdownMenuValue, quotes, setQuotes);
+                }}>
+                    <p>Add Quote</p>
                 </td>
             </tr>
             </tbody>
@@ -77,10 +91,3 @@ function Quotes() {
 }
 
 export default Quotes;
-
-// onClick={() => {
-//     let check = prompt();
-//     const rows = quotes.slice();
-//     rows.push(check);
-//     setQuotes(rows);
-// }}
