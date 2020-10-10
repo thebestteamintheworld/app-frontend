@@ -7,3 +7,9 @@
 .app-header h2 {
     color: whitesmoke;
 }
+
+@media (max-width: 320px) {
+    .app-header {
+        display: none !important;
+    }
+}

@@ -35,15 +35,6 @@ function generateQList(currencies, basicQList) {
     return newQList;
 }
 
-function addQuete(quete: string, quetes: string[], setQuotes) {
-    for (let i of quetes) {
-        if (i == quete) return alert('fuck');
-    }
-    const newQuete: string[] = quetes.slice();
-    newQuete.push(quete);
-    return setQuotes(newQuete);
-}
-
 let currentMessage
 
 function Quotes() {
@@ -72,7 +63,8 @@ function Quotes() {
         }
         socket.onmessage = (e) => {
             console.log(e.data);
-            currentMessage = e.data
+            currentMessage = e.data;
+            console.info(JSON.parse(e.data));
         }
 
         return () => socket.close()
@@ -82,6 +74,7 @@ function Quotes() {
         const interval = setInterval(() => setLastMes(currentMessage), 1000)
         return () => clearInterval(interval)
     })
+    // const msg = JSON.parse(currentMessage);
 
     return (
         <Table striped bordered hover>
@@ -117,8 +110,18 @@ function Quotes() {
 
                         </td>
                         <td>
-                            <p>someShit</p>
+                            <p></p>
                         </td>
+                        <td>
+                            <p></p>
+                        </td>
+                        <td>
+                            <p></p>
+                        </td>
+                        <td>
+                            <p></p>
+                        </td>
+
                     </tr>
                 )
             })}
