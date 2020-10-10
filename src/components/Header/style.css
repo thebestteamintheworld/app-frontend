@@ -4,12 +4,28 @@
     background-color: rgba(41, 41, 34, 0.8);
 }
 
+.app-header-dark
+{
+    display: flex !important;
+    justify-content: center !important;
+    background-color: black;
+}
 .app-header h2 {
     color: whitesmoke;
+}
+.app-header-dark h2 {
+    color: rgb(28,217,41);
+}
+.head-txt-dark h2 {
+    color: rgb(28,217,41);
+
 }
 
 @media (max-width: 320px) {
     .app-header {
+        display: none !important;
+    }
+    .app-header-dark {
         display: none !important;
     }
 }
