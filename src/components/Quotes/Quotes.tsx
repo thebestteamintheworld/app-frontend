@@ -95,13 +95,7 @@ function Quotes() {
                     }/>
                 </td>
             </tr>
-            <tr>
-                <td colSpan={5} className="text-center" onClick={() => {
-                    addQuete(dropdownMenuValue, quotes, setQuotes);
-                }}>
-                    <p>Add Quote</p>
-                </td>
-            </tr>
+            
             </tbody>
         </Table>
     );
