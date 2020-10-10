@@ -77,7 +77,17 @@ function findArr(value, store) {
 
 let currentMessage
 
-function Quotes() {
+
+interface QuotesProps
+{
+    darkTheme:boolean
+
+}
+
+function Quotes(props:QuotesProps) {
+    let tableVariant:string=props.darkTheme? "dark":"light";
+    let textVariant:string=props.darkTheme? "tab-text-dark":"";
+
     const currencies: string[] = [
         'USD', 'CNH', 'EUR', 'AUD', 'HKD', 'CHF', 'GBP', 'CAD'];
     const basicQList: string[] = ['USD/CNH',
