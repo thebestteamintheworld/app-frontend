@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Col, Row, Table} from "react-bootstrap";
 import CurrencyDropdownMenu from "../CurrencyDropdownMenu/CurrencyDropdownMenu";
-
+import './style.css';
 
 interface quote {
     key: string,
@@ -59,7 +59,7 @@ function Quotes() {
     const sendRes = (socket) => {
         const res = JSON.stringify({
             type: "change",
-            symbols: ['USD/CNH', 'EUR/USD', 'AUD/USD', 'USD/HKD', 'USD/CHF', 'EUR/GBP', 'GBP/USD'],
+            symbols: ['USD/CNH', 'EUR/USD', 'AUD/USD', 'USD/HKD', 'USD/CHF', 'EUR/GBP', 'GBP/USD', 'USD/CAD'],
         });
         socket.send(res)
     };
@@ -84,57 +84,57 @@ function Quotes() {
     })
 
     return (
-        <div>
-            <Table striped bordered hover>
-                <thead>
-                <tr>
-                    <th className="text-center">TYPE</th>
-                    <th className="text-center">BID</th>
-                    <th className="text-center">ASK</th>
-                    <th className="text-center">SPREAD</th>
-                    <th className="text-center">MARKUP</th>
-                </tr>
-                </thead>
-                <tbody>
-                {quotes.map((value, index) => {
-                    return (
-                        <tr key={value + index}>
-                            <td>
-                                <Row>
-                                    <Col xs={10}>
-                                        <p>{value}</p>
-                                    </Col>
-                                    <Col onClick={() => {
-                                        setQuotes(quotes.filter(text => value != text))
-                                        setDropdownList([...dropdownList, {
-                                            key: value + dropdownList.length,
-                                            value: value,
-                                            text: value,
-                                        }]);
-                                    }}>
-                                        <i className="fas fa-times-circle remove-btn"/>
-                                    </Col>
-                                </Row>
+        <Table striped bordered hover>
+            <thead>
+            <tr>
+                <th className="text-center">TYPE</th>
+                <th className="text-center">BID</th>
+                <th className="text-center">ASK</th>
+                <th className="text-center">SPREAD</th>
+                <th className="text-center">MARKUP</th>
+            </tr>
+            </thead>
+            <tbody>
+            {quotes.map((value, index) => {
+                return (
+                    <tr key={value + index}>
+                        <td>
+                            <Row>
+                                <Col className = "d-flex justify-content-center" xs ={12} md={6}>
+                                    <p>{value}</p>
+                                </Col>
+                                <Col className="remove-btn-wrapper" onClick={() => {
+                                    setQuotes(quotes.filter(text => value != text))
+                                    setDropdownList([...dropdownList, {
+                                        key: value + dropdownList.length,
+                                        value: value,
+                                        text: value,
+                                    }]);
+                                }}>
+                                    <i className="fas fa-times-circle"/>
+                                </Col>
+                            </Row>
 
-                            </td>
-                        </tr>
-                    )
-                })}
-                <tr>
-                    <td colSpan={5} className="text-center">
-                        <CurrencyDropdownMenu data={dropdownList} onChange={
-                            (value) => {
-                                if (quotes.indexOf(value) === -1) {
-                                    setQuotes([...quotes, value]);
-                                }
+                        </td>
+                        <td>
+                            <p>someShit</p>
+                        </td>
+                    </tr>
+                )
+            })}
+            <tr>
+                <td colSpan={5} className="text-center">
+                    <CurrencyDropdownMenu data={dropdownList} onChange={
+                        (value) => {
+                            if (quotes.indexOf(value) === -1) {
+                                setQuotes([...quotes, value]);
                             }
-                        }/>
-                    </td>
-                </tr>
-                </tbody>
-            </Table>
-            <p>{lastMes}</p>
-        </div>
+                        }
+                    }/>
+                </td>
+            </tr>
+            </tbody>
+        </Table>
     );
 }
 

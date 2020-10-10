@@ -1,8 +1,11 @@
-.type-col:after {
-    font-family: Font Awesome\ 5 Brands;
-    top: 20px;
-    left: 0;
-    content: "\f17e";
-    color:blue;
+.remove-btn-wrapper {
+    display: flex !important;
+    justify-content: flex-end !important;
+}
 
+@media (max-width: 425px) {
+    .remove-btn-wrapper {
+        display: flex !important;
+        justify-content: center !important;
+    }
 }

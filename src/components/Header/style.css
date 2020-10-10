@@ -1,4 +1,6 @@
 .app-header {
+    display: flex !important;
+    justify-content: center !important;
     background-color: rgba(41, 41, 34, 0.8);
 }
 
