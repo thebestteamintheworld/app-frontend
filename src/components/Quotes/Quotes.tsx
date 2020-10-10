@@ -1,51 +1,50 @@
 import React, {useState} from 'react';
 import {Table} from "react-bootstrap";
-import {Dropdown} from 'semantic-ui-react';
+import CurrencyDropdownMenu from "../CurrencyDropdownMenu/CurrencyDropdownMenu";
 
-const countryOptions = [
-    { key: 'af', value: 'af', flag: 'af', text: 'Afghanistan' },
-    { key: 'ax', value: 'ax', flag: 'ax', text: 'Aland Islands' },
-    { key: 'al', value: 'al', flag: 'al', text: 'Albania' },
-    { key: 'dz', value: 'dz', flag: 'dz', text: 'Algeria' },
-    { key: 'as', value: 'as', flag: 'as', text: 'American Samoa' },
-    { key: 'ad', value: 'ad', flag: 'ad', text: 'Andorra' },
-    { key: 'ao', value: 'ao', flag: 'ao', text: 'Angola' },
-    { key: 'ai', value: 'ai', flag: 'ai', text: 'Anguilla' },
-    { key: 'ag', value: 'ag', flag: 'ag', text: 'Antigua' },
-    { key: 'ar', value: 'ar', flag: 'ar', text: 'Argentina' },
-    { key: 'am', value: 'am', flag: 'am', text: 'Armenia' },
-    { key: 'aw', value: 'aw', flag: 'aw', text: 'Aruba' },
-    { key: 'au', value: 'au', flag: 'au', text: 'Australia' },
-    { key: 'at', value: 'at', flag: 'at', text: 'Austria' },
-    { key: 'az', value: 'az', flag: 'az', text: 'Azerbaijan' },
-    { key: 'bs', value: 'bs', flag: 'bs', text: 'Bahamas' },
-    { key: 'bh', value: 'bh', flag: 'bh', text: 'Bahrain' },
-    { key: 'bd', value: 'bd', flag: 'bd', text: 'Bangladesh' },
-    { key: 'bb', value: 'bb', flag: 'bb', text: 'Barbados' },
-    { key: 'by', value: 'by', flag: 'by', text: 'Belarus' },
-    { key: 'be', value: 'be', flag: 'be', text: 'Belgium' },
-    { key: 'bz', value: 'bz', flag: 'bz', text: 'Belize' },
-    { key: 'bj', value: 'bj', flag: 'bj', text: 'Benin' },
-]
+interface quote {
+    key: number,
+    value: string,
+    text: string,
+};
 
 
-const DropdownExampleSearchSelection = () => (
-    <Dropdown
-        placeholder='Select Country'
-        fluid
-        search
-        selection
-        options={countryOptions}
-    />
-)
+function generateQList(currencies, basicQList) {
+    const QList:string[] = [];
+    for (let i of currencies) {
+        for (let j of currencies) {
+            if (i !== j) {
+                QList.push(`${i}/${j}`)
+            }
+        }
+    }
+    const newQList:quote[] = [];
+    let counter:number = 0;
+    for (let i of QList) {
+        if (basicQList.indexOf(i) == -1) {
+            newQList.push({
+                key: counter,
+                value: i,
+                text: i,
+            });
+        }
+    }
+
+    return newQList;
+}
 
 
 function Quotes() {
-    const quotesList: string[] = [
+    const currencies:string[] = [
+        'EUR', 'AUD', 'USD', 'HKD', 'CHF', 'GBP', 'USD', 'CAD'
+    ];
+    const basicQList: string[] = [
         'EUR/USD', 'AUD/USD', 'USD/HKD', 'USD/CHF', 'EUR/GBP', 'GBP/USD', 'USD/CAD'
-    ]
-    const [quotes, setQuotes] = useState(quotesList);
-    let rows = [];
+    ];
+
+    const QList:quote[] = generateQList(currencies, basicQList);
+    console.log(QList);
+    const [quotes, setQuotes] = useState(basicQList);
     return (
         <Table striped bordered hover>
             <thead>
@@ -69,7 +68,7 @@ function Quotes() {
             })}
             <tr>
                 <td colSpan = {5} className="text-center" >
-                    <DropdownExampleSearchSelection/>
+                    <CurrencyDropdownMenu data={QList}/>
                 </td>
             </tr>
             </tbody>
