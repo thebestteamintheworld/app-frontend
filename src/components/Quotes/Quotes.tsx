@@ -37,7 +37,17 @@ function generateQList(currencies, basicQList) {
 
 let currentMessage
 
-function Quotes() {
+
+interface QuotesProps
+{
+    darkTheme:boolean
+
+}
+
+function Quotes(props:QuotesProps) {
+    let tableVariant:string=props.darkTheme? "dark":"light";
+    let textVariant:string=props.darkTheme? "tab-text-dark":"";
+
     const currencies: string[] = [
         'EUR', 'AUD', 'USD', 'HKD', 'CHF', 'GBP', 'USD', 'CAD'
     ];
@@ -77,14 +87,14 @@ function Quotes() {
     // const msg = JSON.parse(currentMessage);
 
     return (
-        <Table striped bordered hover>
+        <Table striped bordered hover variant={tableVariant}>
             <thead>
             <tr>
-                <th className="text-center">TYPE</th>
-                <th className="text-center">BID</th>
-                <th className="text-center">ASK</th>
-                <th className="text-center">SPREAD</th>
-                <th className="text-center">MARKUP</th>
+                <th className={"text-center"+" "+textVariant}>TYPE</th>
+                <th className={"text-center"+" "+textVariant}>BID</th>
+                <th className={"text-center"+" "+textVariant}>ASK</th>
+                <th className={"text-center"+" "+textVariant}>SPREAD</th>
+                <th className={"text-center"+" "+textVariant}>MARKUP</th>
             </tr>
             </thead>
             <tbody>
@@ -94,9 +104,9 @@ function Quotes() {
                         <td>
                             <Row>
                                 <Col className = "d-flex justify-content-center" xs ={12} md={6}>
-                                    <p>{value}</p>
+                                    <p className={textVariant}>{value}</p>
                                 </Col>
-                                <Col className="remove-btn-wrapper" onClick={() => {
+                                <Col className={"remove-btn-wrapper"+" "+textVariant} onClick={() => {
                                     setQuotes(quotes.filter(text => value != text))
                                     setDropdownList([...dropdownList, {
                                         key: value + dropdownList.length,
