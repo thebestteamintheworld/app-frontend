@@ -4,7 +4,7 @@ import CurrencyDropdownMenu from "../CurrencyDropdownMenu/CurrencyDropdownMenu";
 
 
 interface quote {
-    key: number,
+    key: string,
     value: string,
     text: string,
 };
@@ -24,10 +24,11 @@ function generateQList(currencies, basicQList) {
     for (let i of QList) {
         if (basicQList.indexOf(i) == -1) {
             newQList.push({
-                key: counter,
+                key: counter + i,
                 value: i,
                 text: i,
             });
+            counter++;
         }
     }
 
@@ -50,10 +51,8 @@ function Quotes() {
     const basicQList: string[] = [
         'EUR/USD', 'AUD/USD', 'USD/HKD', 'USD/CHF', 'EUR/GBP', 'GBP/USD', 'USD/CAD'
     ];
-    // const QList: quote[] = generateQList(currencies, basicQList);
     const [dropdownList, setDropdownList] = useState<quote[]>(generateQList(currencies, basicQList));
     const [quotes, setQuotes] = useState(basicQList);
-    const [dropdownMenuValue, setDropdownMenuValue] = useState(null);
     return (
         <Table striped bordered hover>
             <thead>
@@ -68,14 +67,19 @@ function Quotes() {
             <tbody>
             {quotes.map((value, index) => {
                 return (
-                    <tr>
-                        <td key={value + index}>
+                    <tr key={value + index}>
+                        <td>
                             <Row>
                                 <Col xs={10}>
                                     <p>{value}</p>
                                 </Col>
                                 <Col onClick={() => {
-                                    alert('yeah')
+                                    setQuotes(quotes.filter(text => value != text))
+                                    setDropdownList([...dropdownList, {
+                                        key: value + dropdownList.length,
+                                        value: value,
+                                        text: value,
+                                    }]);
                                 }}>
                                     <i className="fas fa-times-circle remove-btn"/>
                                 </Col>
@@ -87,19 +91,13 @@ function Quotes() {
             })}
             <tr>
                 <td colSpan={5} className="text-center">
-                    <CurrencyDropdownMenu data={dropdownList} setDropdownMenuValue={setDropdownMenuValue} onChange={
+                    <CurrencyDropdownMenu data={dropdownList} onChange={
                         (value) => {
-                            setQuotes([...quotes, value])
-                            setDropdownList(dropdownList.filter(symbol => symbol !== value))
+                            if (quotes.indexOf(value) === -1) {
+                                setQuotes([...quotes, value]);
+                            }
                         }
                     }/>
-                </td>
-            </tr>
-            <tr>
-                <td colSpan={5} className="text-center" onClick={() => {
-                    addQuete(dropdownMenuValue, quotes, setQuotes);
-                }}>
-                    <p>Add Quote</p>
                 </td>
             </tr>
             </tbody>
