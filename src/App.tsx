@@ -1,26 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'semantic-ui-css/semantic.min.css'
+import {Col, Container, Row} from "react-bootstrap";
+import Quotes from "./components/Quotes/Quotes";
+import TestCharts from "./components/charts/TestChart";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return(
+      <Container fluid>
+          <Row>
+              <Col xs={12}>
+                  <Quotes/>
+              </Col>
+              <Col>
+                  <TestCharts/>
+              </Col>
+          </Row>
+      </Container>
+    );
 }
 
 export default App;
