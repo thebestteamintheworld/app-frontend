@@ -7,7 +7,9 @@ import SwitchThemeButton from "./components/SwitchThemeButton";
 
 function App() {
     const [darkTheme, setDarkTheme] = useState(false);
-    let cl = darkTheme ? "main_window"+" bg-dark" : "main_window";
+    let cl = darkTheme ? "main_window" + " bg-dark" : "main_window";
+    let bd = document.body;
+    bd.className = darkTheme ? "bg-dark" : "";
     return (
         <div className={cl}>
             <Header darkTheme={darkTheme}/>
