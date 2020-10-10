@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {Table} from "react-bootstrap";
+import {Col, Row, Table} from "react-bootstrap";
 import CurrencyDropdownMenu from "../CurrencyDropdownMenu/CurrencyDropdownMenu";
+
 
 interface quote {
     key: number,
@@ -10,7 +11,7 @@ interface quote {
 
 
 function generateQList(currencies, basicQList) {
-    const QList:string[] = [];
+    const QList: string[] = [];
     for (let i of currencies) {
         for (let j of currencies) {
             if (i !== j) {
@@ -18,8 +19,8 @@ function generateQList(currencies, basicQList) {
             }
         }
     }
-    const newQList:quote[] = [];
-    let counter:number = 0;
+    const newQList: quote[] = [];
+    let counter: number = 0;
     for (let i of QList) {
         if (basicQList.indexOf(i) == -1) {
             newQList.push({
@@ -37,19 +38,19 @@ function addQuete(quete: string, quetes: string[], setQuotes) {
     for (let i of quetes) {
         if (i == quete) return alert('fuck');
     }
-    const newQuete:string[] = quetes.slice();
+    const newQuete: string[] = quetes.slice();
     newQuete.push(quete);
     return setQuotes(newQuete);
 }
 
 function Quotes() {
-    const currencies:string[] = [
+    const currencies: string[] = [
         'EUR', 'AUD', 'USD', 'HKD', 'CHF', 'GBP', 'USD', 'CAD'
     ];
     const basicQList: string[] = [
         'EUR/USD', 'AUD/USD', 'USD/HKD', 'USD/CHF', 'EUR/GBP', 'GBP/USD', 'USD/CAD'
     ];
-    const QList:quote[] = generateQList(currencies, basicQList);
+    const QList: quote[] = generateQList(currencies, basicQList);
     const [quotes, setQuotes] = useState(basicQList);
     const [dropdownMenuValue, setDropdownMenuValue] = useState(null);
     return (
@@ -67,19 +68,29 @@ function Quotes() {
             {quotes.map((value, index) => {
                 return (
                     <tr>
-                        <td key={index}>
-                            <p>{value}</p>
+                        <td key={index} >
+                            <Row>
+                                <Col xs={10}>
+                                    <p>{value}</p>
+                                </Col>
+                                <Col onClick={() => {
+                                    alert('yeah')
+                                }}>
+                                    <i className="fas fa-times-circle remove-btn"/>
+                                </Col>
+                            </Row>
+
                         </td>
                     </tr>
                 )
             })}
             <tr>
-                <td colSpan = {5} className="text-center" >
-                    <CurrencyDropdownMenu data={QList} setDropdownMenuValue = {setDropdownMenuValue}/>
+                <td colSpan={5} className="text-center">
+                    <CurrencyDropdownMenu data={QList} setDropdownMenuValue={setDropdownMenuValue}/>
                 </td>
             </tr>
             <tr>
-                <td colSpan = {5} className="text-center" onClick = {() => {
+                <td colSpan={5} className="text-center" onClick={() => {
                     addQuete(dropdownMenuValue, quotes, setQuotes);
                 }}>
                     <p>Add Quote</p>

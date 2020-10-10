@@ -1,0 +1,8 @@
+.type-col:after {
+    font-family: Font Awesome\ 5 Brands;
+    top: 20px;
+    left: 0;
+    content: "\f17e";
+    color:blue;
+
+}
