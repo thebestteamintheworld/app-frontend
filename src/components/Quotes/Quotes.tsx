@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Table} from "react-bootstrap";
 import CurrencyDropdownMenu from "../CurrencyDropdownMenu/CurrencyDropdownMenu";
 import './style.css';
-import Quote from "../Quote/Quote";
+import Quote from "../Quote/Quote.js";
 
 
 interface quote {
