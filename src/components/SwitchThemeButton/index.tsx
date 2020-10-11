@@ -21,7 +21,7 @@ export function SwitchThemeButton(props:SwitchThemeButtonProps)
             readOnly
         />
         <label className={'custom-control-label'+txtClName} htmlFor='customSwitches'>
-            Dark theme
+            BLACK LIVES MATTER!
         </label>
     </div>)
 }
