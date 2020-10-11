@@ -29,12 +29,22 @@ export default function MarkupContainer(props) {
             <Input size = {'mini'} onChange={(e) => {
                 setMarkup(e.target.value);
             }}/>
-
         </Row>
         <Row className="p-3">
-            <Col className="d-flex justify-content-center"><Button onClick={() => {
-                sendMarkup(props.value, markup);
-            }}>SEND</Button></Col>
+
+            <Col className="d-flex justify-content-center">
+                {props.theme === "tab-text-dark" ?
+                    <Button variant="secondary" onClick={() => {
+                        sendMarkup(props.value, markup)
+                    }}>SEND</Button>
+                    :
+                    <Button variant="primary" onClick={() => {
+                        sendMarkup(props.value, markup)
+                    }}>SEND</Button>
+                }
+            </Col>
+
+
         </Row>
     </Container>);
 }

@@ -78,7 +78,7 @@ function Quote(props) {
             <p className={props.textThemeClass}><Spinner data={data} option='spread'/></p>
         </td>
         <td className={'markup-td-width'}>
-           <MarkupContainer value = {props.value}/>
+           <MarkupContainer theme={props.textThemeClass} value = {props.value}/>
         </td>
 
     </tr>);
