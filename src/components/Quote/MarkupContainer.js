@@ -26,20 +26,14 @@ export default function MarkupContainer(props) {
     const [markup, setMarkup] = useState(0);
     return (<Container>
         <Row className="d-flex justify-content-center">
-            <Input onChange={(e) => {
+            <Input size = {'mini'} onChange={(e) => {
                 setMarkup(e.target.value);
             }}/>
-            {/*<Form>*/}
-            {/*    <Form.Row>*/}
-            {/*        <Form.Control placeholder="" onChange={(e) => {*/}
-            {/*            setMarkup(e.target.value);*/}
-            {/*        }}/>*/}
-            {/*    </Form.Row>*/}
-            {/*</Form> */}
+
         </Row>
         <Row className="p-3">
             <Col className="d-flex justify-content-center"><Button onClick={() => {
-                sendMarkup(props.value, markup)
+                sendMarkup(props.value, markup);
             }}>SEND</Button></Col>
         </Row>
     </Container>);
