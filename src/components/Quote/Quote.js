@@ -12,54 +12,39 @@ import './style.css';
 //         textThemeClass: string,
 // }
 
-// fetch(url,
-//     {
-//         method: 'POST',
-//         body:JSON.stringify({type:"get","symbols":["USD/CNH"]})
-//     }).then((e) => e.json()
-// ).
-// then(res => console.log(res));
-
-function Quote(props) {
-    const [data, setData] = useState(null);
+function fetchData(value, markup, setData) {
     const url = 'http://nix112.tk:11600/api';
     const res = {
         method: 'POST',
         type: 'get',
         mode: 'cors',
-        symbols: [props.value],
+        symbols: [value],
+        markup: markup,
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         }
     };
-    fetch(url, res)
-        .then((res) => {
-            res.json();
-        })
-        .then((result) => console.log(result));
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.send(JSON.stringify(res));
+    let data = null;
+    xhr.onload = function (res) {
+        data = JSON.parse(res.target.responseText);
+        setData(data);
+    }
+}
+
+function Quote(props) {
+    const [data, setData] = useState(null);
 
     useEffect(() => {
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", url, true);
-        xhr.send(JSON.stringify(res));
-        xhr.onload = function (res) {
-            let data = JSON.parse(res.target.responseText);
-            console.log(data);
-            setData(data);
-        }
+        fetchData(props.value, 'none', setData);
     }, []);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", url, true);
-            xhr.send(JSON.stringify(res));
-            xhr.onload = function (res) {
-                let data = JSON.parse(res.target.responseText);
-                console.log(data);
-                setData(data);
-            }
-        }, 1000)
+        const interval = setTimeout(() => {
+           fetchData(props.value, 'none', setData);
+        }, 1000);
         return () => clearInterval(interval)
     });
 
