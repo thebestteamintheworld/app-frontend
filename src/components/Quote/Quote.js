@@ -31,7 +31,7 @@ function fetchData(value, markupType, setData) {
     let data = null;
     xhr.onload = function (res) {
         data = JSON.parse(res.target.responseText);
-        console.log(data);
+        // console.log(data);
         setData(data);
     }
 }

@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import {Button, Col, Container, Row} from "react-bootstrap";
 import {Input} from "semantic-ui-react";
 
 function sendMarkup(value, markup) {
     const url = 'http://nix112.tk:11600/api';
     const res = {
-        method:"POST",
+        method: "POST",
         type: "set",
-        symbols:[value],
+        symbols: [value],
         value: Number(markup),
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -27,7 +27,7 @@ export default function MarkupContainer(props) {
     return (<Container>
         <Row className="d-flex justify-content-center">
             <Input onChange={(e) => {
-                setMarkup(e.target.responseText);
+                setMarkup(e.target.value);
             }}/>
             {/*<Form>*/}
             {/*    <Form.Row>*/}
@@ -38,11 +38,9 @@ export default function MarkupContainer(props) {
             {/*</Form> */}
         </Row>
         <Row className="p-3">
-            <Col><Button>FIXED</Button></Col>
-            <Col><Button onClick={() => {
+            <Col className="d-flex justify-content-center"><Button onClick={() => {
                 sendMarkup(props.value, markup)
             }}>SEND</Button></Col>
-            <Col><Button>FLOAT</Button></Col>
         </Row>
     </Container>);
 }
