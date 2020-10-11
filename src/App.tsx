@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import './App.css';
 import Quotes from "./components/Quotes/Quotes";
 import {Header} from "./components/Header";
 import SwitchThemeButton from "./components/SwitchThemeButton";
