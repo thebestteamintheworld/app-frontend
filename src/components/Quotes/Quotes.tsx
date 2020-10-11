@@ -30,12 +30,15 @@ function generateQList(currencies) {
     }
     const newQList: quote[] = [];
     let counter: number = 0;
+    const exception:string[] = ['USD/CNH', 'USD/EUR', 'USD/AUD', 'USD/GBP'];
     for (let i of QList) {
-        newQList.push({
-            key: counter + i,
-            value: i,
-            text: i,
-        });
+        if (exception.includes(i) === false) {
+            newQList.push({
+                key: counter + i,
+                value: i,
+                text: i,
+            });
+        }
         counter++;
     }
 

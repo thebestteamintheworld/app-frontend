@@ -2,16 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Col, Row} from "react-bootstrap";
 import Spinner from "./Spinner";
 import './style.css';
-import {Input} from "semantic-ui-react";
 import MarkupContainer from "./MarkupContainer.js";
-// interface quote {
-//     currency1: string,
-//         currency2: string,
-//         bid: number,
-//         ask: number,
-//         spread: number,
-//         textThemeClass: string,
-// }
 
 function fetchData(value, markupType, setData) {
     const url = 'http://nix112.tk:11600/api';
@@ -31,7 +22,6 @@ function fetchData(value, markupType, setData) {
     let data = null;
     xhr.onload = function (res) {
         data = JSON.parse(res.target.responseText);
-        // console.log(data);
         setData(data);
     }
 }

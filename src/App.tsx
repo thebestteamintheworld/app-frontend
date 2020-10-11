@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import Quotes from "./components/Quotes/Quotes";
 import {Header} from "./components/Header";
-import {Button, Dropdown} from "react-bootstrap";
 import SwitchThemeButton from "./components/SwitchThemeButton";
 
 function App() {
