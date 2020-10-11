@@ -1,4 +1,6 @@
 import React from "react";
+import Text from './Text';
+
 
 function Spinner(props) {
     if (props.data === null) {
@@ -13,14 +15,7 @@ function Spinner(props) {
             let askFixed = Math.abs(Math.floor((props.data.fixed[0].ask) * 100000) / 100000);
             let askFloat = Math.abs(Math.floor((props.data.float[0].ask) * 100000) / 100000);
             return (
-                <div className="d-flex justify-content-center">
-                    <div className="d-flex flex-column justify-content-center">
-                        NO: <p>{askNone}</p>
-                        FIXED: <p>{askFixed}</p>
-                        FLOAT: <p>{askFloat}</p>
-
-                    </div>
-                </div>
+                <Text info1={askNone} info2={askFixed} info3={askFloat}/>
             )
         }
         if (props.option === 'bid') {
@@ -28,13 +23,7 @@ function Spinner(props) {
             let bidFixed = Math.abs(Math.floor((props.data.fixed[0].bid) * 100000) / 100000);
             let bidFloat = Math.abs(Math.floor((props.data.float[0].bid) * 100000) / 100000);
             return (
-                <div className="d-flex justify-content-center">
-                    <div className="d-flex flex-column justify-content-center ">
-                        NO: <p>{bidNone}</p>
-                        FIXED: <p>{bidFixed}</p>
-                        FLOAT:<p>{bidFloat}</p>
-                    </div>
-                </div>
+                <Text info1={bidNone} info2={bidFixed} info3={bidFloat}/>
             )
         }
         if (props.option === 'spread') {
@@ -42,13 +31,7 @@ function Spinner(props) {
             let spreadFixed = Math.abs(Math.floor((props.data.fixed[0].spread) * 100000) / 100000);
             let spreadFloat = Math.abs(Math.floor((props.data.float[0].spread) * 100000) / 100000);
             return (
-                <div className="d-flex justify-content-center">
-                    <div className="d-flex flex-column justify-content-center">
-                        NO: <p>{spreadNone}</p>
-                        FIXED: <p>{spreadFixed}</p>
-                        FLOAT: <p>{spreadFloat}</p>
-                    </div>
-                </div>
+                <Text info1={spreadNone} info2={spreadFixed} info3={spreadFloat}/>
             )
         }
     }
