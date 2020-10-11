@@ -24,6 +24,9 @@ function sendMarkup(value, markup) {
 
 export default function MarkupContainer(props) {
     const [markup, setMarkup] = useState(0);
+
+
+    console.log(props.theme);
     return (<Container>
         <Row className="d-flex justify-content-center">
             <Input onChange={(e) => {
@@ -38,9 +41,12 @@ export default function MarkupContainer(props) {
             {/*</Form> */}
         </Row>
         <Row className="p-3">
+<<<<<<< Updated upstream
             <Col className="d-flex justify-content-center"><Button onClick={() => {
                 sendMarkup(props.value, markup)
             }}>SEND</Button></Col>
+=======
+>>>>>>> Stashed changes
         </Row>
     </Container>);
 }
