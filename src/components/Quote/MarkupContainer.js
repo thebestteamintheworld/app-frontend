@@ -46,6 +46,26 @@ export default function MarkupContainer(props) {
                 sendMarkup(props.value, markup)
             }}>SEND</Button></Col>
 =======
+
+            <Col>
+                {props.theme === "tab-text-dark" ?
+                    <Button variant="secondary">FIXED</Button> :
+                    < Button variant="primary">FIXED</Button>
+                }
+            </Col>
+            <Col>{props.theme === "tab-text-dark" ?
+                <Button variant="secondary" onClick={() => {
+                    sendMarkup(props.value, markup)
+                }}>SEND</Button>
+                : <Button variant="primary" onClick={() => {
+                    sendMarkup(props.value, markup)
+                }}>SEND</Button>
+            }</Col>
+            <Col>{props.theme === "tab-text-dark" ?
+                <Button variant="secondary">FLOAT</Button>
+                :
+                <Button variant="primary">FLOAT</Button>
+            }</Col>
 >>>>>>> Stashed changes
         </Row>
     </Container>);
