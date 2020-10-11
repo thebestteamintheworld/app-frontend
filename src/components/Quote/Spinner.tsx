@@ -10,8 +10,7 @@ function Spinner (props)  {
     }
     else {
         if (props.option === 'ask') {
-            let ask = Math.abs(Math.floor((props.data[0].ask) * 100000) / 100000);
-            console.log(props.data);
+            let ask = Math.abs(Math.floor((props.data.none[0].ask) * 100000) / 100000);
             return(
                 <div>
                     <p>{ask}</p>
@@ -19,7 +18,7 @@ function Spinner (props)  {
             )
         }
         if (props.option === 'bid') {
-            let bid = Math.abs(Math.floor((props.data[0].bid) * 100000) / 100000);
+            let bid = Math.abs(Math.floor((props.data.none[0].bid) * 100000) / 100000);
             return(
                 <div>
                     <p>{bid}</p>
@@ -27,7 +26,7 @@ function Spinner (props)  {
             )
         }
         if (props.option === 'spread') {
-            let spread = Math.abs(Math.floor((props.data[0].spread) * 100000) / 100000);
+            let spread = Math.abs(Math.floor((props.data.none[0].spread) * 100000) / 100000);
             return(
                 <div>
                     <p>{spread}</p>
@@ -35,6 +34,7 @@ function Spinner (props)  {
             )
         }
     }
+    console.log(props.data);
 }
 
 export default Spinner;

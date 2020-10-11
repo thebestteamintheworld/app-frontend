@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Col, Row} from "react-bootstrap";
+import {Button, Col, Row} from "react-bootstrap";
 import Spinner from "./Spinner";
 import './style.css';
-
+import {Input} from "semantic-ui-react";
+import MarkupContainer from "./MarkupContainer.js";
 // interface quote {
 //     currency1: string,
 //         currency2: string,
@@ -12,14 +13,14 @@ import './style.css';
 //         textThemeClass: string,
 // }
 
-function fetchData(value, markup, setData) {
+function fetchData(value, markupType, setData) {
     const url = 'http://nix112.tk:11600/api';
     const res = {
         method: 'POST',
         type: 'get',
         mode: 'cors',
         symbols: [value],
-        markup: markup,
+        markup: markupType,
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         }
@@ -30,6 +31,7 @@ function fetchData(value, markup, setData) {
     let data = null;
     xhr.onload = function (res) {
         data = JSON.parse(res.target.responseText);
+        console.log(data);
         setData(data);
     }
 }
@@ -43,7 +45,7 @@ function Quote(props) {
 
     useEffect(() => {
         const interval = setTimeout(() => {
-           fetchData(props.value, 'none', setData);
+            fetchData(props.value, 'none', setData);
         }, 1000);
         return () => clearInterval(interval)
     });
@@ -76,11 +78,10 @@ function Quote(props) {
             <p className={props.textThemeClass}><Spinner data={data} option='spread'/></p>
         </td>
         <td className={'markup-td-width'}>
-            <p className={props.textThemeClass}></p>
+           <MarkupContainer value = {props.value}/>
         </td>
 
     </tr>);
-// const []
 }
 
 export default Quote;
