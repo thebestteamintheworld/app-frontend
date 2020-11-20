@@ -5,7 +5,7 @@ import './style.css';
 import MarkupContainer from "./MarkupContainer.js";
 
 function fetchData(value, markupType, setData) {
-    const url = 'https://app.nix112.tk/api/api';
+    const url = 'https://levandro.nix112.tk/api';
     const res = {
         method: 'POST',
         type: 'get',

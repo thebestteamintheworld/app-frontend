@@ -3,7 +3,7 @@ import {Button, Col, Container, Row} from "react-bootstrap";
 import {Input} from "semantic-ui-react";
 
 function sendMarkup(value, markup) {
-    const url = 'https://app.nix112.tk/api/api';
+    const url = 'https://levandro.nix112.tk/api';
     const res = {
         method: "POST",
         type: "set",
