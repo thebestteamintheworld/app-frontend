@@ -3,7 +3,7 @@ import {Button, Col, Container, Row} from "react-bootstrap";
 import {Input} from "semantic-ui-react";
 
 function sendMarkup(value, markup) {
-    const url = 'http://nix112.tk:11600/api';
+    const url = 'https://app.nix112.tk/api/api';
     const res = {
         method: "POST",
         type: "set",

@@ -5,7 +5,7 @@ import './style.css';
 import MarkupContainer from "./MarkupContainer.js";
 
 function fetchData(value, markupType, setData) {
-    const url = 'http://nix112.tk:11600/api';
+    const url = 'https://app.nix112.tk/api/api';
     const res = {
         method: 'POST',
         type: 'get',
