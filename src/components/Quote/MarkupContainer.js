@@ -3,7 +3,7 @@ import {Button, Col, Container, Row} from "react-bootstrap";
 import {Input} from "semantic-ui-react";
 
 function sendMarkup(value, markup) {
-    const url = 'https://levandro.nix112.tk/api';
+    const url = 'https://hackaton-2020-backend.n4i8x9a.tk/api';
     const res = {
         method: "POST",
         type: "set",

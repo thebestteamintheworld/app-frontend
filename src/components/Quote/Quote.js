@@ -5,7 +5,7 @@ import './style.css';
 import MarkupContainer from "./MarkupContainer.js";
 
 function fetchData(value, markupType, setData) {
-    const url = 'https://levandro.nix112.tk/api';
+    const url = 'https://hackaton-2020-backend.n4i8x9a.tk/api';
     const res = {
         method: 'POST',
         type: 'get',
